@@ -5,7 +5,7 @@
 ** Login   <pierre.narcisi@epitech.eu>
 **
 ** Started on  Wed Dec 14 15:18:28 2016 Pierre Narcisi
-** Last update Wed Dec 14 21:30:28 2016 Pierre Narcisi
+** Last update Thu Dec 15 10:11:19 2016 Pierre Narcisi
 */
 
 #include "my.h"
@@ -14,7 +14,7 @@ void my_mouv_UP(char **tab, t_var *p)
 {
   if (tab[p->y - 1][p->x] != '#')
   {
-    if (tab[p->y - 1][p->x] != 'X' || (tab[p->y - 1][p->x] != 'X' && tab[p->y - 2][p->x] != '#'))
+    if (tab[p->y - 1][p->x] != 'X' && (tab[p->y - 1][p->x] != 'X' || tab[p->y - 2][p->x] != '#'))
     {
       if (tab[p->y - 1][p->x] == 'X')
       {
@@ -31,7 +31,7 @@ void my_mouv_DOWN(char **tab, t_var *p)
 {
   if (tab[p->y + 1][p->x] != '#')
   {
-    if (tab[p->y + 1][p->x] != 'X' && (tab[p->y + 1][p->x] != 'X' || tab[p->y + 2][p->x] != '#'))
+    if (tab[p->y + 1][p->x] != 'X' || (tab[p->y + 1][p->x] != 'X' && tab[p->y + 2][p->x] != '#'))
       {
         if (tab[p->y + 1][p->x] == 'X')
         {
@@ -65,7 +65,7 @@ void my_mouv_LEFT(char **tab, t_var *p)
 {
   if (tab[p->y][p->x - 1] != '#')
   {
-    if (tab[p->y][p->x - 1] != 'X' || (tab[p->y][p->x - 2] != 'X' && tab[p->y][p->x - 2] != '#'))
+    if (tab[p->y][p->x - 1] != 'X' && (tab[p->y][p->x - 2] != 'X' || tab[p->y][p->x - 2] != '#'))
     {
       if (tab[p->y][p->x - 1] == 'X')
       {

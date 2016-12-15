@@ -5,13 +5,13 @@
 ** Login   <pierre.narcisi@epitech.eu>
 **
 ** Started on  Wed Dec 14 14:37:12 2016 Pierre Narcisi
-** Last update Wed Dec 14 16:10:15 2016 Pierre Narcisi
+** Last update Thu Dec 15 10:21:15 2016 Pierre Narcisi
 */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <ncurses.h>
-
+#include <unistd.h>
 
 typedef struct s_var
 {

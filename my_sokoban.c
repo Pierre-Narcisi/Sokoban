@@ -5,7 +5,7 @@
 ** Login   <pierre.narcisi@epitech.eu>
 **
 ** Started on  Tue Dec 13 20:04:17 2016 Pierre Narcisi
-** Last update Wed Dec 14 21:47:09 2016 Pierre Narcisi
+** Last update Thu Dec 15 10:21:27 2016 Pierre Narcisi
 */
 
 #include "my.h"
@@ -33,7 +33,7 @@ char *my_strcpy(char *src, char *dest)
   return (dest);
 }
 
-int my_nb_read()
+int my_nb_read(char *str)
 {
   FILE *fp;
   char *line;
@@ -44,7 +44,7 @@ int my_nb_read()
   i = 0;
   len = 0;
   line = NULL;
-  fp = fopen("tesy", "r");
+  fp = fopen(str, "r");
   while ((read = getline(&line, &len, fp)) != -1)
   {
     i++;
@@ -61,7 +61,7 @@ char **my_read(char **tab, char *str)
   int i;
 
   i = 0;
-  tab = malloc ((1 + my_nb_read()) * sizeof(char *));
+  tab = malloc ((1 + my_nb_read(str)) * sizeof(char *));
   len = 0;
   line = NULL;
   fp = fopen(str, "r");
