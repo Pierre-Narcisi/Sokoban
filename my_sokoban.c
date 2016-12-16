@@ -5,7 +5,7 @@
 ** Login   <pierre.narcisi@epitech.eu>
 **
 ** Started on  Tue Dec 13 20:04:17 2016 Pierre Narcisi
-** Last update Thu Dec 15 10:21:27 2016 Pierre Narcisi
+** Last update Fri Dec 16 16:27:06 2016 Pierre Narcisi
 */
 
 #include "my.h"
@@ -30,6 +30,7 @@ char *my_strcpy(char *src, char *dest)
     dest[i] = src[i];
     i++;
   }
+  dest[i] = '\0';
   return (dest);
 }
 
@@ -49,6 +50,7 @@ int my_nb_read(char *str)
   {
     i++;
   }
+  fclose (fp);
   return (i);
 }
 
@@ -61,101 +63,47 @@ char **my_read(char **tab, char *str)
   int i;
 
   i = 0;
-  tab = malloc ((1 + my_nb_read(str)) * sizeof(char *));
+  tab = (char**)malloc ((1 + my_nb_read(str)) * sizeof(char *));
   len = 0;
   line = NULL;
   fp = fopen(str, "r");
   while ((read = getline(&line, &len, fp)) != -1)
   {
-    tab[i] = malloc (sizeof(char) * my_strlen(line));
+    tab[i] = (char*)malloc (sizeof(char) * (my_strlen(line) + 1));
     tab[i] = my_strcpy(line, tab[i]);
     i++;
   }
+  tab[i] = NULL;
+  fclose (fp);
   return (tab);
-}
-
-void aff(char **tab)
-{
-  int i;
-
-  i = 0;
-  while (tab[i] != NULL)
-  {
-    printf("%s", tab[i]);
-    i++;
-  }
-}
-
-t_var find(char **tab)
-{
-  int i;
-  int j;
-  t_var p;
-
-  j = 0;
-  while (tab[j] != NULL)
-  {
-    i = 0;
-    while (tab[j][i] != '\0')
-    {
-      if (tab[j][i] == 'P')
-      {
-        p.x = i;
-        p.y = j;
-      }
-      i++;
-    }
-    j++;
-  }
-  return (p);
-}
-
-void mouv(char **tab, t_var *p, int index)
-{
-  int i;
-
-  i = 0;
-  if (index == KEY_LEFT)
-    my_mouv_LEFT(tab, p);
-  if (index == KEY_RIGHT)
-    my_mouv_RIGHT(tab, p);
-  if (index == KEY_UP)
-    my_mouv_UP(tab, p);
-  if (index == KEY_DOWN)
-    my_mouv_DOWN(tab, p);
-  while (tab[i] != NULL)
-  {
-    mvprintw(LINES / 2 + i, COLS / 2  - (my_strlen(tab[i]) / 2), "%s", tab[i]);
-    i++;
-  }
 }
 
 int main(int ac, char **av)
 {
   char **tab;
-  WINDOW *win;
   int index;
   t_var p;
-  int i;
+  int a;
+  char **tab2;
 
-  i = 0;
-  tab = my_read(tab, av[1]);
-  while (tab[i] != '\0')
+  if (ac > 1)
   {
-  printf("%s", tab[i]);
-  i++;
+    a = 0;
+    tab = my_read(tab, av[1]);
+    tab2 = tab_cpy(tab, tab2);
+    p = find(tab);
+    index = 0;
+    initscr();
+    keypad(stdscr, TRUE);
+    while (a != 1)
+    {
+      refresh();
+      mouv(tab, &p, index, tab2);
+      a = Win(tab, tab2);
+      index = getch();
+      clear();
+    }
+    endwin();
   }
-  p = find(tab);
-  index = 0;
-  win = initscr();
-  keypad(stdscr, TRUE);
-  while (index != 32)
-  {
-    refresh();
-    mouv(tab, &p, index);
-    index = getch();
-    clear();
-  }
-  endwin();
   return (0);
 }
