@@ -10,9 +10,9 @@
 
 #include "my.h"
 
-int my_strlen(char *str)
+int	my_strlen(char *str)
 {
-  int i;
+  int	i;
 
   i = 0;
   while (str[i] != '\0')
@@ -20,16 +20,16 @@ int my_strlen(char *str)
   return (i);
 }
 
-char *my_strcpy(char *src, char *dest)
+char	*my_strcpy(char *src, char *dest)
 {
-  int i;
+  int	i;
 
   i = 0;
   while (src[i] != '\0')
-  {
-    dest[i] = src[i];
-    i++;
-  }
+    {
+      dest[i] = src[i];
+      i++;
+    }
   dest[i] = '\0';
   return (dest);
 }

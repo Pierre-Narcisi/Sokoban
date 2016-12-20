@@ -10,33 +10,33 @@
 
 #include "my.h"
 
-int my_nb_read(char *str)
+int		my_nb_read(char *str)
 {
-  FILE *fp;
-  char *line;
-  size_t len;
-  ssize_t read;
-  int i;
+  FILE		*fp;
+  char		*line;
+  size_t	len;
+  ssize_t	read;
+  int		i;
 
   i = 0;
   len = 0;
   line = NULL;
   fp = fopen(str, "r");
   while ((read = getline(&line, &len, fp)) != -1)
-  {
-    i++;
-  }
+    {
+      i++;
+    }
   fclose (fp);
   return (i);
 }
 
-char **my_read(char **tab, char *str)
+char		**my_read(char **tab, char *str)
 {
-  FILE *fp;
-  char *line;
-  size_t len;
-  ssize_t read;
-  int i;
+  FILE		*fp;
+  char		*line;
+  size_t	len;
+  ssize_t	read;
+  int		i;
 
   i = 0;
   tab = (char**)malloc ((1 + my_nb_read(str)) * sizeof(char *));
@@ -44,22 +44,22 @@ char **my_read(char **tab, char *str)
   line = NULL;
   fp = fopen(str, "r");
   while ((read = getline(&line, &len, fp)) != -1)
-  {
-    tab[i] = (char*)malloc (sizeof(char) * (my_strlen(line) + 1));
-    tab[i] = my_strcpy(line, tab[i]);
-    i++;
-  }
+    {
+      tab[i] = (char*)malloc (sizeof(char) * (my_strlen(line) + 1));
+      tab[i] = my_strcpy(line, tab[i]);
+      i++;
+    }
   tab[i] = NULL;
   fclose (fp);
   return (tab);
 }
 
-void boucl(t_var p, char **tab, char **tab2, int a)
+void	boucl(t_var p, char **tab, char **tab2, int a)
 {
   t_pos rbp;
   t_var rb;
   t_var incr;
-  int index;
+  int	index;
 
   index = 0;
   incr.c = 'r';
@@ -78,12 +78,12 @@ void boucl(t_var p, char **tab, char **tab2, int a)
     }
 }
 
-void game(int ac, char **av)
+void	game(int ac, char **av)
 {
-  char **tab;
+  char	**tab;
   t_var p;
-  int a;
-  char **tab2;
+  int	a;
+  char	**tab2;
 
   a = 0;
   tab = my_read(tab, av[1]);

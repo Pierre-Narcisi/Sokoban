@@ -10,7 +10,7 @@
 
 #include "my.h"
 
-void my_init()
+void	my_init()
 {
   curs_set(0);
   start_color();
@@ -23,9 +23,9 @@ void my_init()
   init_pair(7, COLOR_WHITE, COLOR_MAGENTA);
 }
 
-int wich(char **tab, int i, int j)
+int	wich(char **tab, int i, int j)
 {
-  int p;
+  int	p;
 
   p = 0;
   if (tab[i][j] == '#')
@@ -48,7 +48,7 @@ int wich(char **tab, int i, int j)
 void    print_map(char **tab, char **tab2)
 {
   t_pos pos;
-  int p;
+  int	p;
 
   pos.bx = 0;
   pos.rx = my_nb_line(tab);
@@ -57,19 +57,19 @@ void    print_map(char **tab, char **tab2)
     {
       pos.by = 0;
       while (tab[pos.bx][pos.by] != '\0')
-	     {
-         p = wich(tab, pos.bx, pos.by);
+	{
+	  p = wich(tab, pos.bx, pos.by);
           if (tab[pos.bx][pos.by] == '\n')
             printw("%c", '\n');
           else
-          {
-          attron(COLOR_PAIR(p));
-          mvprintw(LINES / 2 + pos.bx - pos.rx / 2 ,
-             COLS / 2 + pos.by - pos.ry / 2, "%c", 'x');
-          attroff(COLOR_PAIR(p));
-          }
-	        pos.by++;
-	     }
+	    {
+	      attron(COLOR_PAIR(p));
+	      mvprintw(LINES / 2 + pos.bx - pos.rx / 2 ,
+		       COLS / 2 + pos.by - pos.ry / 2, "%c", 'x');
+	      attroff(COLOR_PAIR(p));
+	    }
+	  pos.by++;
+	}
       pos.bx++;
     }
 }

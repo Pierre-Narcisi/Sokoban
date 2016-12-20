@@ -10,34 +10,34 @@
 
 #include "my.h"
 
-int Win(char **tab, char **tab2)
+int	Win(char **tab, char **tab2)
 {
-  int i;
-  int j;
-  int n;
+  int	i;
+  int	j;
+  int	n;
 
   n = 1;
   j = 0;
   while (tab[j] != NULL)
-  {
-    i = 0;
-    while (tab[j][i] != '\0')
     {
-      if (tab2[j][i] == 'O')
-      {
-        if (tab[j][i] != 'X')
-          n = 0;
-      }
-      i++;
+      i = 0;
+      while (tab[j][i] != '\0')
+	{
+	  if (tab2[j][i] == 'O')
+	    {
+	      if (tab[j][i] != 'X')
+		n = 0;
+	    }
+	  i++;
+	}
+      j++;
     }
-    j++;
-  }
   return (n);
 }
 
-int my_nb_line(char **tab)
+int	my_nb_line(char **tab)
 {
-  int i;
+  int	i;
 
   i = 0;
   while (tab[i] != NULL)
@@ -45,41 +45,41 @@ int my_nb_line(char **tab)
   return (i);
 }
 
-char **tab_cpy(char **tab, char **tab2)
+char	**tab_cpy(char **tab, char **tab2)
 {
-  int i;
+  int	i;
 
   i = 0;
   tab2 = (char **)malloc (sizeof(char *) * (my_nb_line(tab) + 1));
   while (tab[i] != NULL)
-  {
-    tab2[i] = (char *)malloc (sizeof(char) * (my_strlen(tab[i]) + 1));
-    my_strcpy(tab[i], tab2[i]);
-    i++;
-  }
+    {
+      tab2[i] = (char *)malloc (sizeof(char) * (my_strlen(tab[i]) + 1));
+      my_strcpy(tab[i], tab2[i]);
+      i++;
+    }
   return (tab2);
 }
 
-t_var find(char **tab)
+t_var	find(char **tab)
 {
-  int i;
-  int j;
-  t_var p;
+  int	i;
+  int	j;
+  t_var	p;
 
   j = 0;
   while (tab[j] != NULL)
-  {
-    i = 0;
-    while (tab[j][i] != '\0')
     {
-      if (tab[j][i] == 'P')
-      {
-        p.x = i;
-        p.y = j;
-      }
-      i++;
+      i = 0;
+      while (tab[j][i] != '\0')
+	{
+	  if (tab[j][i] == 'P')
+	    {
+	      p.x = i;
+	      p.y = j;
+	    }
+	  i++;
+	}
+      j++;
     }
-    j++;
-  }
   return (p);
 }

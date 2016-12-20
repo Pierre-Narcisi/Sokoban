@@ -8,27 +8,27 @@
 ## Last update Tue Dec 20 19:53:36 2016 John Doe
 ##
 
-SRC	=	my_sokoban.c	\
-			mouv.c				\
-			verf.c				\
-			op.c					\
-			portal.c			\
-			print_map.c		\
+SRC	=	my_sokoban.c		\
+			mouv.c		\
+			verf.c		\
+			op.c		\
+			portal.c	\
+			print_map.c	\
 			mouv2.c
 
 OBJS	=	$(SRC:.c=.o)
 
 NAME	=	my_sokoban
 
-all:	$(NAME)
+all:		$(NAME)
 
 $(NAME):	$(OBJS)
-					gcc -g3 $(OBJS) -o $(NAME) -lncurses
+		gcc -g3 $(OBJS) -o $(NAME) -lncurses
 
 clean:
-			rm -f $(OBJS)
+		rm -f $(OBJS)
 
-fclean:	clean
-				rm -f $(NAME)
+fclean:		clean
+		rm -f $(NAME)
 
-re:	fclean	$(NAME)
+re:		fclean	$(NAME)

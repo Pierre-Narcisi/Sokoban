@@ -10,9 +10,9 @@
 
 #include "my.h"
 
-int my_strlen(char *str)
+int	my_strlen(char *str)
 {
-  int i;
+  int	i;
 
   i = 0;
   while (str[i] != '\0')
@@ -20,47 +20,47 @@ int my_strlen(char *str)
   return (i);
 }
 
-char *my_strcpy(char *src, char *dest)
+char	*my_strcpy(char *src, char *dest)
 {
-  int i;
+  int	i;
 
   i = 0;
   while (src[i] != '\0')
-  {
-    dest[i] = src[i];
-    i++;
-  }
+    {
+      dest[i] = src[i];
+      i++;
+    }
   dest[i] = '\0';
   return (dest);
 }
 
-int my_nb_read(char *str)
+int		my_nb_read(char *str)
 {
-  FILE *fp;
-  char *line;
-  size_t len;
-  ssize_t read;
-  int i;
+  FILE		*fp;
+  char		*line;
+  size_t	len;
+  ssize_t	read;
+  int		i;
 
   i = 0;
   len = 0;
   line = NULL;
   fp = fopen(str, "r");
   while ((read = getline(&line, &len, fp)) != -1)
-  {
-    i++;
-  }
+    {
+      i++;
+    }
   fclose (fp);
   return (i);
 }
 
-char **my_read(char **tab, char *str)
+char		**my_read(char **tab, char *str)
 {
-  FILE *fp;
-  char *line;
-  size_t len;
-  ssize_t read;
-  int i;
+  FILE		*fp;
+  char		*line;
+  size_t	len;
+  ssize_t	read;
+  int		i;
 
   i = 0;
   tab = (char**)malloc ((1 + my_nb_read(str)) * sizeof(char *));
@@ -68,42 +68,42 @@ char **my_read(char **tab, char *str)
   line = NULL;
   fp = fopen(str, "r");
   while ((read = getline(&line, &len, fp)) != -1)
-  {
-    tab[i] = (char*)malloc (sizeof(char) * (my_strlen(line) + 1));
-    tab[i] = my_strcpy(line, tab[i]);
-    i++;
-  }
+    {
+      tab[i] = (char*)malloc (sizeof(char) * (my_strlen(line) + 1));
+      tab[i] = my_strcpy(line, tab[i]);
+      i++;
+    }
   tab[i] = NULL;
   fclose (fp);
   return (tab);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-  char **tab;
-  int index;
+  char	**tab;
+  int	index;
   t_var p;
-  int a;
-  char **tab2;
+  int	a;
+  char	**tab2;
 
   if (ac > 1)
-  {
-    a = 0;
-    tab = my_read(tab, av[1]);
-    tab2 = tab_cpy(tab, tab2);
-    p = find(tab);
-    index = 0;
-    initscr();
-    keypad(stdscr, TRUE);
-    while (a != 1)
     {
-      refresh();
-      mouv(tab, &p, index, tab2);
-      a = Win(tab, tab2);
-      index = getch();
-      clear();
+      a = 0;
+      tab = my_read(tab, av[1]);
+      tab2 = tab_cpy(tab, tab2);
+      p = find(tab);
+      index = 0;
+      initscr();
+      keypad(stdscr, TRUE);
+      while (a != 1)
+	{
+	  refresh();
+	  mouv(tab, &p, index, tab2);
+	  a = Win(tab, tab2);
+	  index = getch();
+	  clear();
+	}
+      endwin();
     }
-    endwin();
-  }
   return (0);
 }
