@@ -1,11 +1,11 @@
 /*
-** portal.c for portal.c in /home/pierre/work/Unix_System/PSU_2016_my_sokoban/bonus/
+** portal.c for portal.c in /home/pierre/work/Unix_System/PSU_2016_my_sokoban
 **
 ** Made by Pierre Narcisi
 ** Login   <pierre.narcisi@epitech.eu>
 **
 ** Started on  Mon Dec 19 14:15:55 2016 Pierre Narcisi
-** Last update Mon Dec 19 16:12:19 2016 Pierre Narcisi
+** Last update Tue Dec 20 21:45:08 2016 John Doe
 */
 
 #include "my.h"
@@ -22,7 +22,7 @@ void del_port(t_var *incr, char **tab)
 
     while (tab[j][i + 1] != '\0')
     {
-      if (tab[j][i] == 'r')
+      if (tab[j][i] == incr->c)
       {
         tab[j][i] = '#';
       }
@@ -32,25 +32,25 @@ void del_port(t_var *incr, char **tab)
   }
 }
 
-void portal(t_var *incr, char **tab, t_var p)
+t_var portal(t_var *incr, char **tab, t_var p)
 {
-  while (tab[p.y][p.x] != '#')
+  while (tab[p.y][p.x] != '#' && tab[p.y][p.x] != 'b' && tab[p.y][p.x] != 'r')
   {
-    p.y += -1;
-    p.x += 0;
+      p.y += incr->y;
+      p.x += incr->x;
   }
-  tab[p.y][p.x] = 'r';
+  if (tab[p.y][p.x] == '#')
+  {
+    tab[p.y][p.x] = incr->c;
+    p.y -= incr->y;
+    p.x -= incr->x;
+    p.c = incr->c;
+  }
+  return (p);
 }
 
-void lalala(int index, char **tab, t_var p)
+void dir(int index, t_var *incr)
 {
-  t_var *incr;
-
-  incr = (t_var*)malloc(sizeof(t_var));
-  if (index == 'r')
-    incr->c = 'r';
-  else if (index == 'b')
-    incr->c = 'b';
   if (index == 'z')
   {
     incr->y = -1;
@@ -66,14 +66,29 @@ void lalala(int index, char **tab, t_var p)
     incr->y = 0;
     incr->x = -1;
   }
-  else if (index == 'z')
+  else if (index == 'd')
   {
     incr->y = 0;
-    incr->x = -1;
+    incr->x = 1;
   }
+}
+
+t_var lalala(int index, char **tab, t_var p, t_var *incr)
+{
+  t_var rb;
+
+  rb.x = 0;
+  rb.y = 0;
+  rb.c = 0;
+  dir (index, incr);
+  if (index == 'r')
+    incr->c = 'r';
+  else if (index == 'b')
+    incr->c = 'b';
   if (index == 'p')
   {
     del_port(incr, tab);
-    portal(incr, tab, p);
+    rb = portal(incr, tab, p);
   }
+  return (rb);
 }

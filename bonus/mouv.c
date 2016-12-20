@@ -5,39 +5,37 @@
 ** Login   <pierre.narcisi@epitech.eu>
 **
 ** Started on  Wed Dec 14 15:18:28 2016 Pierre Narcisi
-** Last update Mon Dec 19 15:41:14 2016 Pierre Narcisi
+** Last update Tue Dec 20 21:15:15 2016 John Doe
 */
 
 #include "my.h"
 
-void mouv(char **tab, t_var *p, int index, char **tab2)
+void mouv(char **tab, t_var *p, int index, char **tab2,
+   t_pos rbp)
 {
   int i;
-  int pos;
 
   i = 0;
-  pos = my_strlen(tab[i]);
   if (index == KEY_LEFT)
-    my_mouv_LEFT(tab, p, tab2);
+    my_mouv_LEFT(tab, p, tab2, rbp);
   if (index == KEY_RIGHT)
-    my_mouv_RIGHT(tab, p, tab2);
+    my_mouv_RIGHT(tab, p, tab2, rbp);
   if (index == KEY_UP)
-    my_mouv_UP(tab, p, tab2);
+    my_mouv_UP(tab, p, tab2, rbp);
   if (index == KEY_DOWN)
-    my_mouv_DOWN(tab, p, tab2);
-  while (tab[i] != NULL)
-  {
-  mvprintw(LINES / 2 + i, COLS / 2  - (pos / 2), "%s", tab[i]);
-  i++;
-  }
+    my_mouv_DOWN(tab, p, tab2, rbp);
+  print_map(tab, tab2);
 }
 
-void my_mouv_UP(char **tab, t_var *p, char **tab2)
+void my_mouv_UP(char **tab, t_var *p, char **tab2, t_pos rbp)
 {
-  if (tab[p->y - 1][p->x] != '#')
+  if (tab[p->y - 1][p->x] == 'r' || tab[p->y - 1][p->x] == 'b')
+    my_tel(p, tab, rbp);
+  else if (tab[p->y - 1][p->x] != '#')
   {
     if (tab[p->y - 1][p->x] != 'X' ||
-    (tab[p->y - 2][p->x] != 'X' && tab[p->y - 2][p->x] != '#'))
+    (tab[p->y - 2][p->x] != 'X' && tab[p->y - 2][p->x] != '#' &&
+     tab[p->y - 2][p->x] != 'b' && tab[p->y - 2][p->x] != 'r'))
     {
       if (tab[p->y - 1][p->x] == 'X')
         tab[p->y - 2][p->x] = 'X';
@@ -51,12 +49,15 @@ void my_mouv_UP(char **tab, t_var *p, char **tab2)
   }
 }
 
-void my_mouv_DOWN(char **tab, t_var *p, char **tab2)
+void my_mouv_DOWN(char **tab, t_var *p, char **tab2, t_pos rbp)
 {
-  if (tab[p->y + 1][p->x] != '#')
+  if (tab[p->y + 1][p->x] == 'r' || tab[p->y + 1][p->x] == 'b')
+    my_tel(p, tab, rbp);
+  else if (tab[p->y + 1][p->x] != '#')
   {
     if (tab[p->y + 1][p->x] != 'X' ||
-    (tab[p->y + 2][p->x] != 'X' && tab[p->y + 2][p->x] != '#'))
+    (tab[p->y + 2][p->x] != 'X' && tab[p->y + 2][p->x] != '#' &&
+     tab[p->y + 2][p->x] != 'b' && tab[p->y + 2][p->x] != 'r'))
       {
         if (tab[p->y + 1][p->x] == 'X')
         {
@@ -72,12 +73,15 @@ void my_mouv_DOWN(char **tab, t_var *p, char **tab2)
   }
 }
 
-void my_mouv_RIGHT(char **tab, t_var *p, char **tab2)
+void my_mouv_RIGHT(char **tab, t_var *p, char **tab2, t_pos rbp)
 {
-  if (tab[p->y][p->x + 1] != '#')
+  if (tab[p->y][p->x + 1] == 'r' || tab[p->y][p->x + 1] == 'b')
+    my_tel(p, tab, rbp);
+  else if (tab[p->y][p->x + 1] != '#')
   {
     if (tab[p->y][p->x + 1] != 'X' ||
-    (tab[p->y][p->x + 2] != 'X' && tab[p->y][p->x + 2] != '#'))
+    (tab[p->y][p->x + 2] != 'X' && tab[p->y][p->x + 2] != '#' &&
+     tab[p->y][p->x + 2] != 'b' && tab[p->y][p->x + 2] != 'r'))
     {
       if (tab[p->y][p->x + 1] == 'X')
       {
@@ -93,12 +97,15 @@ void my_mouv_RIGHT(char **tab, t_var *p, char **tab2)
   }
 }
 
-void my_mouv_LEFT(char **tab, t_var *p, char **tab2)
+void my_mouv_LEFT(char **tab, t_var *p, char **tab2, t_pos rbp)
 {
-  if (tab[p->y][p->x - 1] != '#')
+  if (tab[p->y][p->x - 1] == 'r' || tab[p->y][p->x - 1] == 'b')
+    my_tel(p, tab, rbp);
+  else if (tab[p->y][p->x - 1] != '#')
   {
     if (tab[p->y][p->x - 1] != 'X' ||
-    (tab[p->y][p->x - 2] != 'X' && tab[p->y][p->x - 2] != '#'))
+    (tab[p->y][p->x - 2] != 'X' && tab[p->y][p->x - 2] != '#' &&
+     tab[p->y][p->x - 2] != 'b' && tab[p->y][p->x - 2] != 'r'))
     {
       if (tab[p->y][p->x - 1] == 'X')
         tab[p->y][p->x - 2] = 'X';

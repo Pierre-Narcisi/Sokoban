@@ -5,34 +5,10 @@
 ** Login   <pierre.narcisi@epitech.eu>
 **
 ** Started on  Tue Dec 13 20:04:17 2016 Pierre Narcisi
-** Last update Mon Dec 19 15:41:04 2016 Pierre Narcisi
+** Last update Tue Dec 20 22:00:57 2016 John Doe
 */
 
 #include "my.h"
-
-int my_strlen(char *str)
-{
-  int i;
-
-  i = 0;
-  while (str[i] != '\0')
-    i++;
-  return (i);
-}
-
-char *my_strcpy(char *src, char *dest)
-{
-  int i;
-
-  i = 0;
-  while (src[i] != '\0')
-  {
-    dest[i] = src[i];
-    i++;
-  }
-  dest[i] = '\0';
-  return (dest);
-}
 
 int my_nb_read(char *str)
 {
@@ -78,33 +54,49 @@ char **my_read(char **tab, char *str)
   return (tab);
 }
 
-int main(int ac, char **av)
+void boucl(t_var p, char **tab, char **tab2, int a)
+{
+  t_pos rbp;
+  t_var rb;
+  t_var incr;
+  int index;
+
+  index = 0;
+  incr.c = 'r';
+  incr.x = 0;
+  incr.y = -1;
+  while (a != 1)
+    {
+      refresh();
+      rb = lalala(index, tab, p, &incr);
+      my_port_pos(rb, &rbp);
+      mouv(tab, &p, index, tab2, rbp);
+      a = Win(tab, tab2);
+      index = getch();
+      clear();
+      endwin();
+    }
+}
+
+void game(int ac, char **av)
 {
   char **tab;
-  int index;
   t_var p;
   int a;
   char **tab2;
 
-  if (ac > 1)
-  {
-    a = 0;
-    tab = my_read(tab, av[1]);
-    tab2 = tab_cpy(tab, tab2);
-    p = find(tab);
-    index = 0;
-    initscr();
-    keypad(stdscr, TRUE);
-    while (a != 1)
-    {
-      refresh();
-      lalala(index, tab, p);
-      mouv(tab, &p, index, tab2);
-      a = Win(tab, tab2);
-      index = getch();
-      clear();
-    }
-    endwin();
-  }
+  a = 0;
+  tab = my_read(tab, av[1]);
+  tab2 = tab_cpy(tab, tab2);
+  p = find(tab);
+  initscr();
+  my_init();
+  keypad(stdscr, TRUE);
+  boucl(p, tab, tab2, a);
+}
+
+int main(int ac, char **av)
+{
+  game(ac, av);
   return (0);
 }
